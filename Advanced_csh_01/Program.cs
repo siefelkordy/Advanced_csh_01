@@ -70,6 +70,7 @@
             int weight;
             decimal deliveryFee;
             DeliveryAddress destination;
+            public static int TotalShipmentsCreated;
 
 
             //Properties
@@ -179,12 +180,18 @@
             }
             //2nd Constructor
             public Shipment(string TrackingCode, string Description, int Weight, decimal DeliveryFee)
-            {
+             {
                 trackingCode = TrackingCode;
                 description = Description;
                 weight = Weight;
                 deliveryFee = DeliveryFee;
-            }
+             }
+            //Static Constructor
+             static Shipment()
+             {
+                 TotalShipmentsCreated = 0;
+                 Console.WriteLine("Shipment System Initialized");
+             }
             //////////////Methods
             //Update DeliveryFee Method
             public void UpdateDeilveryFee(decimal newFee)
@@ -222,13 +229,15 @@
             //Shallow Copy Method
             public Shipment ShallowCopy()
             {
-                return (Shipment)this.MemberwiseClone();
+                       TotalShipmentsCreated++;
+                       return (Shipment)this.MemberwiseClone();
             }
             //Deep Copy Method
             public Shipment DeepCopy()
             {
                 Shipment copy = (Shipment)this.MemberwiseClone();
                 copy.Destination = new DeliveryAddress(this.Destination.City, this.Destination.Street, this.Destination.BuildingNumber);
+                TotalShipmentsCreated++;
                 return copy;
             }
 
@@ -242,6 +251,7 @@
             //Chaining Constructor
             public StandardShipment(string TrackingCode, string Description, int Weight, decimal DeliveryFee) : base(TrackingCode, Description, Weight, DeliveryFee)
             {
+                  TotalShipmentsCreated++;
             }
             //Print Shipment Override method
             public override string PrintShipmentDetails()
@@ -298,6 +308,7 @@
             public ExpressShipment(string TrackingCode, string Description, int Weight, decimal DeliveryFee, decimal extrafee) : base(TrackingCode, Description, Weight, DeliveryFee)
             {
                 this.ExtraFee = extrafee;
+                TotalShipmentsCreated++;
             }
             //ITrackable Implementation
             public string GetTrackingStatus()
@@ -373,6 +384,7 @@
             {
                 this.CustomsFee = customsfee;
                 this.DestinationCountry = destinationcountry;
+                TotalShipmentsCreated++;
             }
             //ITrackable Implementation
             public string GetTrackingStatus()
