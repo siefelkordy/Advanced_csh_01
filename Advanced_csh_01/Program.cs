@@ -240,13 +240,18 @@
                 TotalShipmentsCreated++;
                 return copy;
             }
+            //Get Total Shipments Created Static Method
+            public static int GetTotalShipmentsCreated()
+            {
+               return TotalShipmentsCreated;
+            }
 
-        }
-        #endregion
+    }
+    #endregion
 
-        #region Standard Shipment Class(Child Class)
-        //Standard Shipment Class(Child Class)
-        public class StandardShipment : Shipment, ITrackable, IInsurable
+    #region Standard Shipment Class(Child Class)
+    //Standard Shipment Class(Child Class)
+    public class StandardShipment : Shipment, ITrackable, IInsurable
         {
             //Chaining Constructor
             public StandardShipment(string TrackingCode, string Description, int Weight, decimal DeliveryFee) : base(TrackingCode, Description, Weight, DeliveryFee)
@@ -552,14 +557,21 @@
             public Driver(string name)
             {
                 this.name = name;
-            }
-
         }
-        #endregion
 
+    }
+    #endregion
 
-        #region Main
-        internal class Program
+    public static class DeliveryUtilities
+    { 
+    public static void PrintSeparator() => Console.WriteLine(new string('-', 40));
+    
+    public static void PrintSystemTitle() => Console.WriteLine("Delivery Center ");
+
+    }
+
+    #region Main
+    internal class Program
         {
             static void Main(string[] args)
             {
